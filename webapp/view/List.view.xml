@@ -62,11 +62,7 @@
                     </OverflowToolbar>
                 </headerToolbar>
                 <items>
-                    <ObjectListItem
-                        type="Navigation"
-                        press=".onSelectionChange"
-                        title="{Document_nr}"
-                         />
+                    <StandardListItem type="Navigation" press=".onSelectionChange" title="{Mat_nr}" description="{Item_Description}" />
                 </items>
             </List>
         </semantic:content>

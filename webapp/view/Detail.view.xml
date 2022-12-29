@@ -1,94 +1,131 @@
 <mvc:View
     controllerName="be.edu.ap.sales.zsd040salesapp.controller.Detail"
-    xmlns="sap.m"
+    xmlns="sap.uxap"
+    xmlns:m="sap.m"
     xmlns:semantic="sap.f.semantic"
-    xmlns:mvc="sap.ui.core.mvc">
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+>
+    <ObjectPageLayout id="ObjectPageLayout">
+        <headerTitle>
+            <ObjectPageDynamicHeaderTitle>
+                <actions>
+                    <m:ToggleButton press=".toggleFullScreen" icon="sap-icon://expand"
+                        type="Transparent" />
+                    <m:Button press=".onCloseDetailPress" icon="sap-icon://decline"
+                        type="Transparent" />
+                </actions>
 
-    <semantic:SemanticPage
-        id="detailPage"
-        busy="{detailView>/busy}"
-        busyIndicatorDelay="{detailView>/delay}">
-        <semantic:titleHeading>
-            <Title
-                text="{Document_nr}"
-                level="H2"/>
-        </semantic:titleHeading>
-        <semantic:headerContent>
-            <ObjectAttribute title="{i18n>priceTitle}"/>
-            <ObjectNumber />
-        </semantic:headerContent>
-        <semantic:content>
+                <expandedHeading>
+                    <m:HBox>
+                        <m:Title text="{json>/Sales/to_info/Name}" wrapping="true" />
+                    </m:HBox>
+                </expandedHeading>
+                <snappedHeading>
+                    <m:FlexBox fitContainer="true" alignItems="Center">
+                        <m:Title text="Status {json>/Sales/to_info/Name}" wrapping="true" />
+                    </m:FlexBox>
+                </snappedHeading>
 
-            <Table
-                id="lineItemsList"
-                width="auto"
-                items="{ZSD_040_C_SALES_ITEMS_DETAIL}"
-                updateFinished=".onListUpdateFinished"
-                noDataText="{i18n>detailLineItemTableNoDataText}"
-                busyIndicatorDelay="{detailView>/lineItemTableDelay}">
-                <headerToolbar>
-                    <Toolbar>
-                        <Title
-                            id="lineItemsTitle"
-                            text="{detailView>/lineItemListTitle}"
-                            titleStyle="H3"
-                            level="H3"/>
-                    </Toolbar>
-                </headerToolbar>
-                <columns>
-                    <Column>
-                        <Text text="{i18n>detailLineItemTableIDColumn}"/>
-                    </Column>
-                    <Column
-                        minScreenWidth="Tablet"
-                        demandPopin="true"
-                        hAlign="End">
-                        <Text text="{i18n>detailLineItemTableUnitNumberColumn}"/>
-                    </Column>
-                </columns>
-                <items>
-                    <ColumnListItem>
-                        <cells>
-                            <ObjectIdentifier
-                                title="{Document_nr}"
-                                text="{Document_nr}"/>
-                            <ObjectNumber
-                                number="{
-                                    path: 'Gross_weight',
-                                    formatter: '.formatter.currencyValue'
-                                }"
-                                unit="{Gross_weight}" />
-                        </cells>
-                    </ColumnListItem>
-                </items>
-            </Table>
-        </semantic:content>
-        <!--Semantic ShareMenu Buttons-->
-        <semantic:sendEmailAction>
-            <semantic:SendEmailAction
-                id="shareEmail"
-                press=".onSendEmailPress"/>
-        </semantic:sendEmailAction>
+                <expandedContent>
 
-        <semantic:closeAction>
-            <semantic:CloseAction
-                    id="closeColumn"
-                    press=".onCloseDetailPress"/>
-        </semantic:closeAction>
+                    <m:Title text="{json>/Sales/Mat_nr}" />
 
-        <semantic:fullScreenAction>
-            <semantic:FullScreenAction
-                    id="enterFullScreen"
-                    visible="{= !${device>/system/phone} &amp;&amp; !${appView>/actionButtonsInfo/midColumn/fullScreen}}"
-                    press=".toggleFullScreen"/>
-        </semantic:fullScreenAction>
-        <semantic:exitFullScreenAction>
-            <semantic:ExitFullScreenAction
-                    id="exitFullScreen"
-                    visible="{= !${device>/system/phone} &amp;&amp; ${appView>/actionButtonsInfo/midColumn/fullScreen}}"
-                    press=".toggleFullScreen"/>
-        </semantic:exitFullScreenAction>
+                </expandedContent>
 
-    </semantic:SemanticPage>
+                <snappedContent>
+                    <m:Title text="{json>/Sales/to_info/Status}" />
+                </snappedContent>
 
+                <!-- <snappedTitleOnMobile>
+                <m:Title
+                text="{json>/Sales/Document_nr}" />
+            </snappedTitleOnMobile> -->
+            </ObjectPageDynamicHeaderTitle>
+        </headerTitle>
+
+        <headerContent>
+            <m:FlexBox wrap="Wrap">
+                <layout:VerticalLayout>
+                    <m:ObjectStatus title="Price" text="{json>/Sales/to_info/Net_value} USD" />
+                    <m:ObjectStatus title="Co Area" text="{json>/Sales/to_info/Co_area}" />
+                    <m:ObjectStatus title="Status" text="{json>/Sales/to_info/Status}" />
+                </layout:VerticalLayout>
+            </m:FlexBox>
+        </headerContent>
+
+        <sections>
+            <ObjectPageSection titleUppercase="false" id="custInfoSection"
+                title="Customer information">
+                <subSections>
+                    <ObjectPageSubSection id="custInfoSectionSS1">
+                        <blocks>
+                            <layout:VerticalLayout>
+                                <m:Label text="Headquarters Address:" />
+                                <m:Text text="{json>/Sales/to_info/Street}" />
+
+                                <m:Label text=" " />
+
+                                <m:Label text="Country" />
+                                <m:Text text="{json>/Sales/to_info/Country}" />
+
+                            </layout:VerticalLayout>
+                            <layout:VerticalLayout>
+
+                                <m:Label text="Name" />
+                                <m:Text text="{json>/Sales/to_info/Name}" />
+                                <m:Label text=" " />
+
+                                <m:Label text="City:" />
+                                <m:Text text="{json>/Sales/to_info/City}" />
+
+                            </layout:VerticalLayout>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+            <ObjectPageSection titleUppercase="false" id="orderInfoSection"
+                title="Order information">
+                <subSections>
+                    <ObjectPageSubSection id="OrderInfoSectionSS1">
+                        <blocks>
+                            <layout:VerticalLayout>
+                                <m:Label text="Material Group:" />
+                                <m:Text text="{json>/Sales/to_info/Mat_group}" />
+
+                                <m:Label text=" " />
+
+                                <m:Label text="Item Number" />
+                                <m:Text text="{json>/Sales/Item_nr}" />
+
+                                <m:Label text=" " />
+
+                                <m:Label text="Item Catogory" />
+                                <m:Text text="{json>/Sales/to_info/Item_category}" />
+
+                            </layout:VerticalLayout>
+                            <layout:VerticalLayout>
+
+                                <m:Label text="Unit:" />
+                                <m:Text text="{json>/Sales/to_info/Unit}" />
+
+                                <m:Label text=" " />
+
+                                <m:Label text="Gross Weight" />
+                                <m:Text text="{json>/Sales/to_info/Gross_weight} G" />
+
+                                <m:Label text=" " />
+
+                                <m:Label text="Net Weight" />
+                                <m:Text text="{json>/Sales/to_info/Net_weight} G" />
+
+                            </layout:VerticalLayout>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+        </sections>
+    </ObjectPageLayout>
 </mvc:View>

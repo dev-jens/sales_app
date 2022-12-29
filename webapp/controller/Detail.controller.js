@@ -31,7 +31,10 @@ sap.ui.define([
 
             this.setModel(oViewModel, "detailView");
 
-            this.getOwnerComponent().getModel().metadataLoaded().then(this._onMetadataLoaded.bind(this));
+           this.getOwnerComponent().getModel().metadataLoaded().then(this._onMetadataLoaded.bind(this));
+
+           const oModel = new sap.ui.model.json.JSONModel();
+           this.getView().setModel(oModel, 'json');
         },
 
         /* =========================================================== */
@@ -86,15 +89,38 @@ sap.ui.define([
          * @private
          */
         _onObjectMatched: function (oEvent) {
-            var sObjectId =  oEvent.getParameter("arguments").objectId;
+
+            const sObjectId = oEvent.getParameter("arguments").objectId;
             this.getModel("appView").setProperty("/layout", "TwoColumnsMidExpanded");
-            this.getModel().metadataLoaded().then( function() {
-                var sObjectPath = this.getModel().createKey("ZSD_040_C_SALES_ITEMS", {
-                    Document_nr:  sObjectId
-                });
-                this._bindView("/" + sObjectPath);
-            }.bind(this));
+    
+            // this.getModel().metadataLoaded().then( function() {
+            //     var sObjectPath = this.getModel().createKey("ZSD_040_C_SALES_ITEMS", {
+            //         Document_nr:  objectId
+            //     });
+            //     this._bindView("/" + sObjectPath);
+            //     console.log(sObjectPath);
+            // }.bind(this));
+
+            this._initData(sObjectId)
+        
         },
+
+        _initData(DocumentNr) {
+            this.getModel().read(`/ZSD_040_C_SALES_ITEMS('${DocumentNr}')`, {
+                urlParameters: '$expand=to_info',
+                success: function (oData) {
+                    const oModel = new sap.ui.model.json.JSONModel();
+                    oModel.setProperty('/Sales', oData)
+                    this.getView().setModel(oModel, 'json')
+                    console.log(oData);
+
+                }.bind(this),
+                error: function (oError) {
+                    console.error(oError);
+                }
+            });
+        },
+
 
         /**
          * Binds the view to the object path. Makes sure that detail view displays
@@ -179,9 +205,10 @@ sap.ui.define([
          * Set the full screen mode to false and navigate to list page
          */
         onCloseDetailPress: function () {
+            console.log("onCloseDetailPress");
             this.getModel("appView").setProperty("/actionButtonsInfo/midColumn/fullScreen", false);
             // No item should be selected on list after detail page is closed
-            this.getOwnerComponent().oListSelector.clearListListSelection();
+            // this.getOwnerComponent().oListSelector.clearListListSelection();
             this.getRouter().navTo("list");
         },
 
