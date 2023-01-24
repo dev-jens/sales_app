@@ -53,11 +53,10 @@
                             </layoutData>
                         </SearchField>
                         <ToolbarSpacer/>
-                        <Button
-                            id="sortButton"
-                            press=".onOpenViewSettings"
-                            icon="sap-icon://sort"
-                            type="Transparent"/>
+                        <Button id="_IDGenButton1" 
+                        type="Accept"
+                        text="Create Order"
+                        press="onPressCreate"/> 
 
                     </OverflowToolbar>
                 </headerToolbar>

@@ -72,7 +72,10 @@
       "": {
         "dataSource": "mainService",
         "preload": true,
-        "settings": {}
+        "settings": {
+            "defaultBindingMode": "TwoWay",
+            "defaultUpdateMethode": "PUT"
+        }
       }
     },
     "resources": {
@@ -105,6 +108,14 @@
             "list",
             "object"
           ]
+        },
+        {
+          "pattern": "CreateOrderRoute",
+          "name": "CreateOrderObject",
+          "target": [
+              "list",
+              "CreateOrderObject"
+          ]
         }
       ],
       "targets": {
@@ -116,6 +127,12 @@
         "object": {
           "viewName": "Detail",
           "viewId": "detail",
+          "viewLevel": 1,
+          "controlAggregation": "midColumnPages"
+        },
+        "CreateOrderObject": {
+          "viewName": "CreateOrder",
+          "viewId": "createOrder",
           "viewLevel": 1,
           "controlAggregation": "midColumnPages"
         },

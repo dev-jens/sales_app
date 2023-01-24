@@ -49,11 +49,11 @@ sap.ui.define([
                 oViewModel.setProperty("/delay", iOriginalBusyDelay);
             });
 
-            this.getView().addEventDelegate({
-                onBeforeFirstShow: function () {
-                    this.getOwnerComponent().oListSelector.setBoundMasterList(oList);
-                }.bind(this)
-            });
+            // this.getView().addEventDelegate({
+            //     onBeforeFirstShow: function () {
+            //         this.getOwnerComponent().oListSelector.setBoundMasterList(oList);
+            //     }.bind(this)
+            // });
 
             this.getRouter().getRoute("list").attachPatternMatched(this._onMasterMatched, this);
             this.getRouter().attachBypassed(this.onBypassed, this);
@@ -262,6 +262,15 @@ sap.ui.define([
             }, bReplace);
         },
 
+        onPressCreate: function (oEvent) {
+            
+            var bReplace = !Device.system.phone;
+            this.getModel("appView").setProperty("/layout", "TwoColumnsMidExpanded");
+            const oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            oRouter.navTo("CreateOrderObject", {}, bReplace);
+        },
+
+
         /**
          * Sets the item count on the list header
          * @param {integer} iTotalItems the total number of items in the list
@@ -303,6 +312,10 @@ sap.ui.define([
             oViewModel.setProperty("/isFilterBarVisible", (this._oListFilterState.aFilter.length > 0));
             oViewModel.setProperty("/filterBarLabel", this.getResourceBundle().getText("listFilterBarText", [sFilterBarText]));
         }
+
+
+
+
 
     });
 
