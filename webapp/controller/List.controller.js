@@ -23,7 +23,7 @@ sap.ui.define([
          * Called when the list controller is instantiated. It sets up the event handling for the list/detail communication and other lifecycle tasks.
          * @public
          */
-        onInit : function () {
+        onInit: function () {
             // Control state model
             var oList = this.byId("list"),
                 oViewModel = this._createViewModel(),
@@ -32,19 +32,18 @@ sap.ui.define([
                 // taken care of by the list itself.
                 iOriginalBusyDelay = oList.getBusyIndicatorDelay();
 
-
+           
             this._oList = oList;
             // keeps the filter and search state
             this._oListFilterState = {
-                aFilter : [],
-                aSearch : []
+                aFilter: [],
+                aSearch: []
             };
-
             this.setModel(oViewModel, "listView");
             // Make sure, busy indication is showing immediately so there is no
             // break after the busy indication for loading the view's meta data is
             // ended (see promise 'oWhenMetadataIsLoaded' in AppController)
-            oList.attachEventOnce("updateFinished", function(){
+            oList.attachEventOnce("updateFinished", function () {
                 // Restore original busy indicator delay for the list
                 oViewModel.setProperty("/delay", iOriginalBusyDelay);
             });
@@ -69,9 +68,13 @@ sap.ui.define([
          * @param {sap.ui.base.Event} oEvent the update finished event
          * @public
          */
-        onUpdateFinished : function (oEvent) {
+        onUpdateFinished: function (oEvent) {
             // update the list object counter after new data is loaded
             this._updateListItemCount(oEvent.getParameter("total"));
+        },
+
+        _initData: function () {
+           
         },
 
         /**
@@ -83,25 +86,21 @@ sap.ui.define([
          * @public
          */
         onSearch: function (oEvent) {
-            if (oEvent.getParameters().refreshButtonPressed) {
-                // Search field's 'refresh' button has been pressed.
-                // This is visible if you select any list item.
-                // In this case no new search is triggered, we only
-                // refresh the list binding.
-                this.onRefresh();
-                return;
+            const filters = [];
+            console.log(this.getView().byId("input").getValue(""))
+            const query = this.getView().byId("input").getValue("");
+            if (query && query.length > 0) {
+                const nameFilter = new sap.ui.model.Filter("Sold_to", sap.ui.model.FilterOperator.Contains, query);
+
+                filters.push(nameFilter);
             }
 
-            var sQuery = oEvent.getParameter("query");
-
-            if (sQuery) {
-                this._oListFilterState.aSearch = [new Filter("Document_nr", FilterOperator.Contains, sQuery)];
-            } else {
-                this._oListFilterState.aSearch = [];
-            }
-            this._applyFilterSearch();
+            const list = this.getView().byId("list");
+            const binding = list.getBinding("items");
+            binding.filter(filters);
 
         },
+
 
         /**
          * Event handler for refresh event. Keeps filter, sort
@@ -133,7 +132,7 @@ sap.ui.define([
                     id: this.getView().getId(),
                     name: "be.edu.ap.sales.zsd040salesapp.view.ViewSettingsDialog",
                     controller: this
-                }).then(function(oDialog){
+                }).then(function (oDialog) {
                     // connect dialog to the root view of this component (models, lifecycle)
                     this.getView().addDependent(oDialog);
                     oDialog.addStyleClass(this.getOwnerComponent().getContentDensityClass());
@@ -154,7 +153,7 @@ sap.ui.define([
          * @public
          */
         onConfirmViewSettingsDialog: function (oEvent) {
-            
+
             this._applySortGroup(oEvent);
         },
 
@@ -168,7 +167,7 @@ sap.ui.define([
                 sPath,
                 bDescending,
                 aSorters = [];
-            
+
             sPath = mParams.sortItem.getKey();
             bDescending = mParams.sortDescending;
             aSorters.push(new Sorter(sPath, bDescending));
@@ -210,8 +209,8 @@ sap.ui.define([
          */
         createGroupHeader: function (oGroup) {
             return new GroupHeaderListItem({
-                title : oGroup.text,
-                upperCase : false
+                title: oGroup.text,
+                upperCase: false
             });
         },
 
@@ -220,7 +219,7 @@ sap.ui.define([
          * We navigate back in the browser history
          * @public
          */
-        onNavBack: function() {
+        onNavBack: function () {
             // eslint-disable-next-line sap-no-history-manipulation
             history.go(-1);
         },
@@ -230,7 +229,7 @@ sap.ui.define([
         /* =========================================================== */
 
 
-        _createViewModel: function() {
+        _createViewModel: function () {
             return new JSONModel({
                 isFilterBarVisible: false,
                 filterBarLabel: "",
@@ -242,7 +241,7 @@ sap.ui.define([
             });
         },
 
-        _onMasterMatched:  function() {
+        _onMasterMatched: function () {
             //Set the layout property of the FCL control to 'OneColumn'
             this.getModel("appView").setProperty("/layout", "OneColumn");
         },
@@ -258,12 +257,12 @@ sap.ui.define([
             // set the layout property of FCL control to show two columns
             this.getModel("appView").setProperty("/layout", "TwoColumnsMidExpanded");
             this.getRouter().navTo("object", {
-                objectId : oItem.getBindingContext().getProperty("Document_nr")
+                objectId: oItem.getBindingContext().getProperty("Document_nr")
             }, bReplace);
         },
 
         onPressCreate: function (oEvent) {
-            
+
             var bReplace = !Device.system.phone;
             this.getModel("appView").setProperty("/layout", "TwoColumnsMidExpanded");
             const oRouter = sap.ui.core.UIComponent.getRouterFor(this);
@@ -307,11 +306,11 @@ sap.ui.define([
          * @param {string} sFilterBarText the selected filter value
          * @private
          */
-        _updateFilterBar : function (sFilterBarText) {
+        _updateFilterBar: function (sFilterBarText) {
             var oViewModel = this.getModel("listView");
             oViewModel.setProperty("/isFilterBarVisible", (this._oListFilterState.aFilter.length > 0));
             oViewModel.setProperty("/filterBarLabel", this.getResourceBundle().getText("listFilterBarText", [sFilterBarText]));
-        }
+        },
 
 
 

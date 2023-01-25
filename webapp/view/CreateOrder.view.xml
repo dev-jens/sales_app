@@ -52,7 +52,7 @@
                         </Select> -->
                         
                         <Label text="Sold-To-Party" required="true"/>
-                        <Select id="STP" required="true" >
+                        <Select id="STP" items="{/ZSD_040_C_SALES_ITEMS}" required="true" >
                             <core:ListItem  key="klant1" text="klant"  />
                         </Select>
                         <Label  text="Required delivery date" required="true" />
@@ -64,8 +64,7 @@
         </semantic:content>
         <!-- Semantic Footer Buttons -->
         <semantic:positiveAction>
-            <semantic:PositiveAction id="_IDGenPositiveAction1" text="Create Sales Order"
-                press="addSalesOrder" />
+            <semantic:PositiveAction id="_IDGenPositiveAction1" text="Create Sales Order" press="addSalesOrder" />
         </semantic:positiveAction>
 
         <!--Semantic ShareMenu Buttons-->

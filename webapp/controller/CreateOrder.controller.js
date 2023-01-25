@@ -97,7 +97,7 @@ sap.ui.define([
             const oSalesOrder = {
                 "cust_ref": this.getView().byId("Cust_ref").getValue(""),
                 "sold_to": this.getView().byId("STP").getSelectedKey(),
-                "deliv_date": this.getView().byId("RDD").getValue("")
+                "deliv_date": this.getView().byId("RDD").getValue("").toISOString()
             };
 
             console.log(oSalesOrder);

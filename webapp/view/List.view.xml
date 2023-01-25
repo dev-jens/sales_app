@@ -2,7 +2,8 @@
     controllerName="be.edu.ap.sales.zsd040salesapp.controller.List"
     xmlns="sap.m"
     xmlns:semantic="sap.f.semantic"
-    xmlns:mvc="sap.ui.core.mvc">
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core">
 
     <semantic:SemanticPage
         id="listPage"
@@ -38,12 +39,13 @@
 
                 <headerToolbar>
                     <OverflowToolbar>
-                        <SearchField
+                        <!-- <SearchField
                             id="searchField"
                             showRefreshButton="true"
                             tooltip="{i18n>listSearchTooltip}"
                             search=".onSearch"
                             width="auto">
+                       
                             <layoutData>
                                 <OverflowToolbarLayoutData
                                     minWidth="150px"
@@ -51,7 +53,31 @@
                                     shrinkable="true"
                                     priority="NeverOverflow"/>
                             </layoutData>
-                        </SearchField>
+                        </SearchField> -->
+
+                        <Input
+                        id="input"
+                        placeholder="Enter sold to"
+                        showSuggestion="true"
+                        showRefreshButton="true"
+                        liveChange=".onSearch"
+                        tooltip="{i18n>listSearchTooltip}"
+                        suggestionItems="{/ZSD_040_SOLD_TO_PARTIES}">
+                        <suggestionItems>
+                            <core:Item press=".onPress" text="{Sold_to}" />
+                        </suggestionItems>
+                        <layoutData>
+                            <OverflowToolbarLayoutData
+                                minWidth="150px"
+                                maxWidth="240px"
+                                shrinkable="true"
+                                priority="NeverOverflow"/>
+                        </layoutData>
+                    </Input>
+                    <Button 
+                    text="Search"
+                    press=".onSearch"/> 
+
                         <ToolbarSpacer/>
                         <Button id="_IDGenButton1" 
                         type="Accept"
