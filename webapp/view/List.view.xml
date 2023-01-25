@@ -59,12 +59,11 @@
                         id="input"
                         placeholder="Enter sold to"
                         showSuggestion="true"
-                        showRefreshButton="true"
                         liveChange=".onSearch"
                         tooltip="{i18n>listSearchTooltip}"
                         suggestionItems="{/ZSD_040_SOLD_TO_PARTIES}">
                         <suggestionItems>
-                            <core:Item press=".onPress" text="{Sold_to}" />
+                            <core:Item  text="{Sold_to}" />
                         </suggestionItems>
                         <layoutData>
                             <OverflowToolbarLayoutData

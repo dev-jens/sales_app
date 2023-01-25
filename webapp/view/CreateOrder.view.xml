@@ -47,24 +47,27 @@
                         <Input id="Cust_ref" value="" required="true" />
 
                         <!-- <Label text="Custumer reference" required="true"/>
-                        <Select id="Cust_ref_select" required="true" >
-                            <core:ListItem  key="cust_ref1" text="refference1"  />
+                        <Select
+                        id="Cust_ref_select" required="true" >
+                            <core:ListItem
+                        key="cust_ref1" text="refference1"  />
                         </Select> -->
-                        
-                        <Label text="Sold-To-Party" required="true"/>
-                        <Select id="STP" items="{/ZSD_040_C_SALES_ITEMS}" required="true" >
-                            <core:ListItem  key="klant1" text="klant"  />
+
+                        <Label text="Sold-To-Party" required="true" />
+                        <Select id="STP" forceSelection="true" items="{ path: '/ZSD_040_SOLD_TO_PARTIES'}">
+                            <core:Item key="{Sold_to}" text="{Sold_to}" />
                         </Select>
-                        <Label  text="Required delivery date" required="true" />
+                        <Label text="Required delivery date" required="true" />
                         <DatePicker id="RDD" valueFormat="yyyyMMdd" value="" required="true" />
-                       
+
                     </f:content>
                 </f:SimpleForm>
             </VBox>
         </semantic:content>
         <!-- Semantic Footer Buttons -->
         <semantic:positiveAction>
-            <semantic:PositiveAction id="_IDGenPositiveAction1" text="Create Sales Order" press="addSalesOrder" />
+            <semantic:PositiveAction id="_IDGenPositiveAction1" text="Create Sales Order"
+                press="addSalesOrder" />
         </semantic:positiveAction>
 
         <!--Semantic ShareMenu Buttons-->

@@ -94,12 +94,15 @@ sap.ui.define([
 
         addSalesOrder: function (oEvent) {
            
+            const FULL_LENGHT_OF_STP_NUM = 10;
+        
+
             const oSalesOrder = {
                 "cust_ref": this.getView().byId("Cust_ref").getValue(""),
-                "sold_to": this.getView().byId("STP").getSelectedKey(),
-                "deliv_date": this.getView().byId("RDD").getValue("").toISOString()
-            };
-
+                "sold_to": this.addZeros(this.getView().byId("STP").getSelectedKey(), FULL_LENGHT_OF_STP_NUM),
+                "deliv_date": this.getView().byId("RDD").getValue("").toJSON()
+            }
+        
             console.log(oSalesOrder);
 
             // this.getModel().create("/salesorderset", oSalesOrder, {
@@ -114,8 +117,15 @@ sap.ui.define([
             // this.clearInput();
             // this.getOwnerComponent().getRouter().navTo("list", {}, true);
             // window.location.reload();
+        },
+
+        addZeros : function (str, desiredLength) {
+            // adds zeros befort the string to reach the desired length for bapi
+            return str.padStart(desiredLength, '0');
         }
+    
 
     });
 
+ 
 });
