@@ -13,10 +13,11 @@
             <Title
                 id="listPageTitle"
                 text="{listView>/title}"
-                level="H2"/>
+                level="H2" />
         </semantic:titleHeading>
         <semantic:content>
-            <!-- For client side filtering add this to the items attribute: parameters: {operationMode: 'Client'}}" -->
+            <!-- For client side filtering add this to the items attribute: parameters:
+            {operationMode: 'Client'}}" -->
             <List
                 id="list"
                 width="auto"
@@ -40,40 +41,41 @@
                 <headerToolbar>
                     <OverflowToolbar>
                         <Input
-                        id="input"
-                        placeholder="Enter sold to"
-                        showSuggestion="true"
-                        liveChange=".onSearch"
-                        submit=".onEnter"
-                        tooltip="{i18n>listSearchTooltip}"
-                        suggestionItemSelected=".onSearch"
-                        suggestionItems="{/ZSD_040_SOLD_TO_PARTIES}">
-                       
-                        <suggestionItems>
-                            <core:Item  text="{Sold_to}" />
-                        </suggestionItems>
-                        <layoutData>
-                            <OverflowToolbarLayoutData
-                                minWidth="150px"
-                                maxWidth="240px"
-                                shrinkable="true"
-                                priority="NeverOverflow"/>
-                        </layoutData>
-                    </Input>
-                    <Button 
-                    text="Search"
-                    press=".onSearch"/> 
+                            id="input"
+                            placeholder="Enter sold to"
+                            showSuggestion="true"
+                            liveChange=".onSearch"
+                            submit=".onEnter"
+                            tooltip="{i18n>listSearchTooltip}"
+                            suggestionItemSelected=".onSearch"
+                            suggestionItems="{/ZSD_040_SOLD_TO_PARTIES}">
 
-                        <ToolbarSpacer/>
-                        <Button id="_IDGenButton1" 
-                        type="Accept"
-                        text="Create Order"
-                        press="onPressCreate"/> 
+                            <suggestionItems>
+                                <core:Item text="{Sold_to}" />
+                            </suggestionItems>
+                            <layoutData>
+                                <OverflowToolbarLayoutData
+                                    minWidth="150px"
+                                    maxWidth="240px"
+                                    shrinkable="true"
+                                    priority="NeverOverflow" />
+                            </layoutData>
+                        </Input>
+                        <Button
+                            text="Search"
+                            press=".onSearch" />
+
+                        <ToolbarSpacer />
+                        <Button id="_IDGenButton1"
+                            type="Accept"
+                            text="Create Order"
+                            press="onPressCreate" />
 
                     </OverflowToolbar>
                 </headerToolbar>
                 <items>
-                    <StandardListItem type="Navigation" press=".onSelectionChange" title="{Mat_nr}" description="{Item_Description}" />
+                    <StandardListItem type="Navigation" press=".onSelectionChange" title="{Mat_nr}"
+                        description="{Item_Description}" />
                 </items>
             </List>
         </semantic:content>
