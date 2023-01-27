@@ -39,22 +39,6 @@
 
                 <headerToolbar>
                     <OverflowToolbar>
-                        <!-- <SearchField
-                            id="searchField"
-                            showRefreshButton="true"
-                            tooltip="{i18n>listSearchTooltip}"
-                            search=".onSearch"
-                            width="auto">
-                       
-                            <layoutData>
-                                <OverflowToolbarLayoutData
-                                    minWidth="150px"
-                                    maxWidth="240px"
-                                    shrinkable="true"
-                                    priority="NeverOverflow"/>
-                            </layoutData>
-                        </SearchField> -->
-
                         <Input
                         id="input"
                         placeholder="Enter sold to"
