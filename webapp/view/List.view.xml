@@ -60,8 +60,11 @@
                         placeholder="Enter sold to"
                         showSuggestion="true"
                         liveChange=".onSearch"
+                        submit=".onEnter"
                         tooltip="{i18n>listSearchTooltip}"
+                        suggestionItemSelected=".onSearch"
                         suggestionItems="{/ZSD_040_SOLD_TO_PARTIES}">
+                       
                         <suggestionItems>
                             <core:Item  text="{Sold_to}" />
                         </suggestionItems>

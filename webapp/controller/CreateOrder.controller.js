@@ -30,9 +30,9 @@ sap.ui.define([
 
             this.setModel(oViewModel, "CreateOrderView");
 
-            // this.getOwnerComponent().getModel().metadataLoaded().then(this._onMetadataLoaded.bind(this));
-            // const oModel = new sap.ui.model.json.JSONModel();
-            // this.getView().setModel(oModel, 'json');
+            // standard 14 days from today
+            this.getView().byId("RDD").setValue(this.getCurrentDatePlusDays(14));
+
         },
         /**
          * Event handler for navigating back.
@@ -83,9 +83,8 @@ sap.ui.define([
         },
 
         clearInput: function () {
-            this.getView().byId("Cust_ref").setValue("");
-            // this.getView().byId("STP").setValue("");
-            this.getView().byId("RDD").setValue("");
+            // set date to current date + 14 days
+            this.getView().byId("RDD").setValue(this.getCurrentDatePlusDays(14));
         },
 
         /* =========================================================== */
@@ -95,33 +94,55 @@ sap.ui.define([
         addSalesOrder: function (oEvent) {
            
             const FULL_LENGHT_OF_STP_NUM = 10;
-        
 
             const oSalesOrder = {
-                "cust_ref": this.getView().byId("Cust_ref").getValue(""),
-                "sold_to": this.addZeros(this.getView().byId("STP").getSelectedKey(), FULL_LENGHT_OF_STP_NUM),
-                "deliv_date": this.getView().byId("RDD").getValue("").toJSON()
+                "SalesDoc":"",
+                "CustomerRef": this.getView().byId("Cust_ref").getSelectedKey(),
+                "SoldToParty": this.addZerosBefore(this.getView().byId("STP").getSelectedKey(), FULL_LENGHT_OF_STP_NUM),
+                "ReqDelivDate": this.convertToJSONDateValue(this.getView().byId("RDD").getValue(""))       
             }
-        
+            
             console.log(oSalesOrder);
 
-            // this.getModel().create("/salesorderset", oSalesOrder, {
-            //     succes: function (oFeedback) {
-            //         console.log(oFeedback);
-            //     },
-            //     error: function (oError) {
-            //         console.error(oError);
-            //     }
-            // });
+            this.getModel().create("/SalesOrderSet", oSalesOrder, {
+                succes: function (oFeedback) {
+                    console.log(oFeedback);
+                },
+                error: function (oError) {
+                    console.error(oError);
+                }
+            });
 
-            // this.clearInput();
-            // this.getOwnerComponent().getRouter().navTo("list", {}, true);
-            // window.location.reload();
+            this.clearInput();
+            this.getOwnerComponent().getRouter().navTo("list", {}, true);
+            window.location.reload();
         },
 
-        addZeros : function (str, desiredLength) {
+        /* =========================================================== */
+        /* begin: Helper Methodes for Crud operations                  */
+        /* =========================================================== */
+
+        addZerosBefore : function (inputSTP, desiredLengthSTP) {
             // adds zeros befort the string to reach the desired length for bapi
-            return str.padStart(desiredLength, '0');
+            return inputSTP.padStart(desiredLengthSTP, '0');
+        },
+
+        convertToJSONDateValue :  function (str) {
+            var year = str.substring(0, 4);
+            var month = str.substring(4, 6);
+            var day = str.substring(6, 8);
+            var date = new Date(year, month - 1, day);
+            var timestamp = date.getTime();
+            return '/Date(' + timestamp + ')/';
+        },
+
+        getCurrentDatePlusDays : function(plus_days) {
+            var date = new Date();
+            date.setDate(date.getDate() + plus_days);
+            var year = date.getFullYear();
+            var month = (date.getMonth() + 1).toString().padStart(2, '0');
+            var day = date.getDate().toString().padStart(2, '0');
+            return year + month + day;
         }
     
 

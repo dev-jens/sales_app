@@ -89,6 +89,7 @@ sap.ui.define([
             const filters = [];
             console.log(this.getView().byId("input").getValue(""))
             const query = this.getView().byId("input").getValue("");
+
             if (query && query.length > 0) {
                 const nameFilter = new sap.ui.model.Filter("Sold_to", sap.ui.model.FilterOperator.Contains, query);
 
@@ -99,6 +100,11 @@ sap.ui.define([
             const binding = list.getBinding("items");
             binding.filter(filters);
 
+        },
+
+        onEnter : function (oEvent) {
+            console.log(this.getView().byId("input").getValue(""))
+        
         },
 
 
@@ -311,6 +317,8 @@ sap.ui.define([
             oViewModel.setProperty("/isFilterBarVisible", (this._oListFilterState.aFilter.length > 0));
             oViewModel.setProperty("/filterBarLabel", this.getResourceBundle().getText("listFilterBarText", [sFilterBarText]));
         },
+
+    
 
 
 

@@ -43,16 +43,11 @@
                     <f:content>
                         <core:Title text="Create sales order" />
 
-                        <Label text="Custumer reference" />
-                        <Input id="Cust_ref" value="" required="true" />
-
-                        <!-- <Label text="Custumer reference" required="true"/>
-                        <Select
-                        id="Cust_ref_select" required="true" >
-                            <core:ListItem
-                        key="cust_ref1" text="refference1"  />
-                        </Select> -->
-
+                        <Label text="Custumer reference" required="true" />
+                        <Select id="Cust_ref" forceSelection="true" items="{ path: '/ZSD_040_C_CUSTOMER_REF'}">
+                            <core:Item key="{Cust_ref}" text="{Cust_ref}" />
+                        </Select> 
+                        
                         <Label text="Sold-To-Party" required="true" />
                         <Select id="STP" forceSelection="true" items="{ path: '/ZSD_040_SOLD_TO_PARTIES'}">
                             <core:Item key="{Sold_to}" text="{Sold_to}" />
