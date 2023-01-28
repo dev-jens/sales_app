@@ -131,9 +131,9 @@ sap.ui.define([
             var year = str.substring(0, 4);
             var month = str.substring(4, 6);
             var day = str.substring(6, 8);
-            var date = new Date(year, month - 1, day);
+            var date = new Date(Date.UTC(year, month - 1, day));
             var timestamp = date.getTime();
-            return '/Date(' + timestamp + ')/';
+            return '\/Date(' + timestamp + ')\/';
         },
 
         getCurrentDatePlusDays : function(plus_days) {

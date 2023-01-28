@@ -42,7 +42,7 @@
                     <OverflowToolbar>
                         <Input
                             id="input"
-                            placeholder="Enter sold to"
+                            placeholder="Enter sold-to-party number"
                             showSuggestion="true"
                             liveChange=".onSearch"
                             submit=".onEnter"
