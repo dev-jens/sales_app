@@ -41,17 +41,34 @@
                     columnsM="1"
                     singleContainerFullSize="false">
                     <f:content>
-                        <core:Title text="Create sales order" />
 
-                        <Label text="Custumer reference" required="true" />
-                        <Select id="Cust_ref" forceSelection="true" items="{ path: '/ZSD_040_C_CUSTOMER_REF'}">
-                            <core:Item key="{Cust_ref}" text="{Cust_ref}" />
-                        </Select> 
-                        
+                        <core:Title text="Create sales order" />
+                        <Label text="Custumer reference " required="true" />
+                        <Input
+                            id="Cust_ref"
+                            placeholder="Enter Customer reference (ex: Z***)"
+                            showSuggestion="true"
+                            suggestionItems="{/ZSD_040_C_CUSTOMER_REF}">
+
+                            <suggestionItems>
+                                <core:Item text="{Cust_ref}" />
+                            </suggestionItems>
+                        </Input>
+
+
                         <Label text="Sold-To-Party" required="true" />
-                        <Select id="STP" forceSelection="true" items="{ path: '/ZSD_040_SOLD_TO_PARTIES'}">
-                            <core:Item key="{Sold_to}" text="{Sold_to}" />
-                        </Select>
+                        <Input
+                            id="STP"
+                            placeholder="Enter Customer reference (ex: 5***)"
+                            showSuggestion="true"
+                            suggestionItems="{/ZSD_040_SOLD_TO_PARTIES}">
+
+                            <suggestionItems>
+                                <core:Item text="{Sold_to}" />
+                            </suggestionItems>
+                        </Input>
+
+
                         <Label text="Required delivery date" required="true" />
                         <DatePicker id="RDD" valueFormat="yyyyMMdd" value="" required="true" />
 

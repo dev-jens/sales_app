@@ -97,25 +97,25 @@ sap.ui.define([
 
             const oSalesOrder = {
                 "SalesDoc":"",
-                "CustomerRef": this.getView().byId("Cust_ref").getSelectedKey(),
-                "SoldToParty": this.addZerosBefore(this.getView().byId("STP").getSelectedKey(), FULL_LENGHT_OF_STP_NUM),
-                "ReqDelivDate": this.convertToJSONDateValue(this.getView().byId("RDD").getValue(""))       
+                "CustomerRef": this.getView().byId("Cust_ref").getValue(),
+                "SoldToParty": this.addZerosBefore(this.getView().byId("STP").getValue(), FULL_LENGHT_OF_STP_NUM),
+                "ReqDelivDate": this.convertToJSONDateValue(this.getView().byId("RDD").getValue())       
             }
             
             console.log(oSalesOrder);
 
-            this.getModel().create("/SalesOrderSet", oSalesOrder, {
-                succes: function (oFeedback) {
-                    console.log(oFeedback);
-                },
-                error: function (oError) {
-                    console.error(oError);
-                }
-            });
+            // this.getModel().create("/SalesOrderSet", oSalesOrder, {
+            //     succes: function (oFeedback) {
+            //         console.log(oFeedback);
+            //     },
+            //     error: function (oError) {
+            //         console.error(oError);
+            //     }
+            // });
 
-            this.clearInput();
-            this.getOwnerComponent().getRouter().navTo("list", {}, true);
-            window.location.reload();
+            // this.clearInput();
+            // this.getOwnerComponent().getRouter().navTo("list", {}, true);
+            // window.location.reload();
         },
 
         /* =========================================================== */
