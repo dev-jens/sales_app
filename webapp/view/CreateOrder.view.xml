@@ -70,7 +70,7 @@
 
 
                         <Label text="Required delivery date" required="true" />
-                        <DatePicker id="RDD" valueFormat="yyyyMMdd" value="" required="true" />
+                        <DatePicker id="RDD" valueFormat="yyyyMMdd" required="true" />
 
                     </f:content>
                 </f:SimpleForm>

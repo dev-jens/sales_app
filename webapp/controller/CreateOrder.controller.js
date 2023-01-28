@@ -104,18 +104,18 @@ sap.ui.define([
             
             console.log(oSalesOrder);
 
-            // this.getModel().create("/SalesOrderSet", oSalesOrder, {
-            //     succes: function (oFeedback) {
-            //         console.log(oFeedback);
-            //     },
-            //     error: function (oError) {
-            //         console.error(oError);
-            //     }
-            // });
+            this.getModel().create("/SalesOrderSet", oSalesOrder, {
+                succes: function (oFeedback) {
+                    console.log(oFeedback);
+                },
+                error: function (oError) {
+                    console.error(oError);
+                }
+            });
 
-            // this.clearInput();
-            // this.getOwnerComponent().getRouter().navTo("list", {}, true);
-            // window.location.reload();
+            this.clearInput();
+            this.getOwnerComponent().getRouter().navTo("list", {}, true);
+            window.location.reload();
         },
 
         /* =========================================================== */
